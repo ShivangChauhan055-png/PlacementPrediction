@@ -1,0 +1,418 @@
+/* ===== RESET ===== */
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, Helvetica, sans-serif;
+}
+
+html, body{
+height:100%;
+margin: 0;
+}
+
+/* ===== BODY ===== */
+
+body{
+background:
+linear-gradient(rgba(0,0,0,.7), rgba(0,0,0,.7)),
+url("/static/images/bg.jpg");
+
+background-size:cover;
+background-position:center;
+background-repeat:no-repeat;
+
+color:white;
+}
+
+/* ===== HEADER ===== */
+
+header{
+position:absolute;
+top:0;
+left:0;
+width:100%;
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:30px 80px;
+}
+
+.logo{
+    font-size:28px;
+    font-weight:bold;
+    color:orange;
+    line-height:1.2;
+}
+
+.logo span{
+    color:white;
+}
+
+nav a{
+color:white;
+text-decoration:none;
+margin-left:30px;
+font-weight:500;
+position:relative;
+}
+
+nav a::after{
+content:"";
+position:absolute;
+left:0;
+bottom:-6px;
+width:0%;
+height:2px;
+background:orange;
+transition:.3s;
+}
+
+nav a:hover::after{
+width:100%;
+}
+
+/* ===== HERO ===== */
+
+.hero{
+height:100vh;
+display:flex;
+align-items:center;
+padding-left:80px;
+}
+
+.hero-text{
+max-width:600px;
+}
+
+.hero-text h1{
+font-size:40px;
+}
+
+.hero-text h2{
+font-size:60px;
+}
+
+.hero-text span{
+color:orange;
+}
+
+.hero-text p{
+margin:20px 0;
+color:#ddd;
+}
+
+/* ===== BUTTON ===== */
+
+.btn-link{
+    display:inline-block;
+    padding:12px 30px;
+    background:linear-gradient(135deg,#ffb300,#ff7a00);
+    color:black;
+    font-weight:bold;
+    border-radius:8px;
+    text-decoration:none;
+
+    position:relative;
+    overflow:hidden;
+
+    transition:0.3s;
+}
+
+/* HOVER SCALE + GLOW */
+.btn-link:hover{
+    transform:scale(1.1);
+    box-shadow:0 0 25px orange;
+}
+
+/* SHINE EFFECT */
+.btn-link::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:-100%;
+    width:100%;
+    height:100%;
+    background:linear-gradient(120deg,transparent,rgba(255,255,255,0.6),transparent);
+    transition:0.5s;
+}
+
+.btn-link:hover::before{
+    left:100%;
+}
+
+/* PULSE ANIMATION */
+.btn-link{
+    animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+    0%{
+        box-shadow:0 0 0 0 rgba(255,165,0,0.6);
+    }
+    70%{
+        box-shadow:0 0 0 15px rgba(255,165,0,0);
+    }
+    100%{
+        box-shadow:0 0 0 0 rgba(255,165,0,0);
+    }
+}
+
+/* ============================= */
+/*  PREDICT PAGE FINAL */
+/* ============================= */
+
+.form-wrapper{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
+/* MAIN CARD */
+
+.form-container{
+width:420px;
+padding:35px;
+
+background:rgba(0,0,0,0.7);
+backdrop-filter:blur(12px);
+
+border-radius:15px;
+box-shadow:0 0 30px rgba(255,165,0,0.3);
+
+text-align:center;
+animation:fadeIn 0.8s ease;
+}
+
+.form-container h1{
+margin-bottom:20px;
+}
+
+/* INPUT */
+
+.form-container input{
+width:100%;
+padding:14px;
+margin:12px 0;
+
+border:none;
+border-radius:8px;
+outline:none;
+
+transition:0.3s;
+}
+
+.form-container input:focus{
+box-shadow:0 0 10px orange;
+transform:scale(1.02);
+}
+
+/* BUTTON */
+
+.form-container button{
+width:100%;
+margin-top:20px;
+padding:14px;
+
+border:none;
+border-radius:8px;
+
+font-weight:bold;
+font-size:16px;
+
+background:linear-gradient(135deg,#ffb300,#ff7a00);
+color:black;
+
+cursor:pointer;
+position:relative;
+overflow:hidden;
+
+transition:0.3s;
+}
+
+.form-container button:hover{
+transform:scale(1.05);
+box-shadow:0 0 20px orange;
+}
+
+/* SHINE EFFECT */
+
+.form-container button::before{
+content:"";
+position:absolute;
+top:0;
+left:-100%;
+width:100%;
+height:100%;
+background:linear-gradient(120deg,transparent,rgba(255,255,255,0.6),transparent);
+transition:0.5s;
+}
+
+.form-container button:hover::before{
+left:100%;
+}
+
+/* NEON BORDER */
+
+.form-container button span{
+position:absolute;
+display:block;
+}
+
+/* TOP */
+.form-container button span:nth-child(1){
+top:0;
+left:-100%;
+width:100%;
+height:2px;
+background:linear-gradient(90deg,transparent,white);
+animation:topLine 1.5s linear infinite;
+}
+
+/* RIGHT */
+.form-container button span:nth-child(2){
+top:-100%;
+right:0;
+width:2px;
+height:100%;
+background:linear-gradient(180deg,transparent,white);
+animation:rightLine 1.5s linear infinite;
+animation-delay:.4s;
+}
+
+/* BOTTOM */
+.form-container button span:nth-child(3){
+bottom:0;
+right:-100%;
+width:100%;
+height:2px;
+background:linear-gradient(270deg,transparent,white);
+animation:bottomLine 1.5s linear infinite;
+animation-delay:.8s;
+}
+
+/* LEFT */
+.form-container button span:nth-child(4){
+bottom:-100%;
+left:0;
+width:2px;
+height:100%;
+background:linear-gradient(360deg,transparent,white);
+animation:leftLine 1.5s linear infinite;
+animation-delay:1.2s;
+}
+
+/* ===== ANIMATIONS ===== */
+
+@keyframes topLine{
+0%{left:-100%}
+50%,100%{left:100%}
+}
+
+@keyframes rightLine{
+0%{top:-100%}
+50%,100%{top:100%}
+}
+
+@keyframes bottomLine{
+0%{right:-100%}
+50%,100%{right:100%}
+}
+
+@keyframes leftLine{
+0%{bottom:-100%}
+50%,100%{bottom:100%}
+}
+
+@keyframes fadeIn{
+from{
+opacity:0;
+transform:translateY(40px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+/* ============================= */
+/*  RESULT PAGE */
+/* ============================= */
+
+.result-wrapper{
+    position:fixed;   /* 🔥 FULL SCREEN LOCK */
+    top:0;
+    left:0;
+    width:100%;
+    height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+/* RESULT BOX */
+
+.result-box{
+    width:400px;
+    padding:40px;
+
+    background:rgba(0,0,0,0.7);
+    backdrop-filter:blur(12px);
+
+    border-radius:15px;
+    text-align:center;
+
+    box-shadow:0 0 30px rgba(255,165,0,0.4);
+
+    animation:resultPop 0.8s ease;
+}
+
+/* TEXT */
+
+.result-box h1{
+    margin-bottom:20px;
+}
+
+.result-box h2{
+    font-size:28px;
+    margin:10px 0;
+    color:#00ffcc;
+}
+
+.result-box h3{
+    margin-bottom:25px;
+    color:#ddd;
+}
+
+/* BUTTON */
+
+.result-box .btn-link{
+    display:inline-block;
+    padding:12px 30px;
+    background:linear-gradient(135deg,#ffb300,#ff7a00);
+    color:black;
+    font-weight:bold;
+    border-radius:8px;
+    text-decoration:none;
+    transition:0.3s;
+}
+
+.result-box .btn-link:hover{
+    transform:scale(1.1);
+    box-shadow:0 0 20px orange;
+}
+
+/* ANIMATION */
+
+@keyframes resultPop{
+    from{
+        opacity:0;
+        transform:scale(0.6);
+    }
+    to{
+        opacity:1;
+        transform:scale(1);
+    }
+}

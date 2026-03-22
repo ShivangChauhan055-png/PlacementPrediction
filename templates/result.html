@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<div class="result-wrapper">
+
+    <div class="result-box">
+
+        <h1>Prediction Result</h1>
+
+        <h2>
+            {% if result == "Placed" %}
+                ✅ Placed 🎉
+            {% else %}
+                ⚠️ Not Placed ❌
+            {% endif %}
+        </h2>
+
+        <h3>Chance: {{ probability }} %</h3>
+
+        <a href="/predict" class="btn-link">Try Again</a>
+
+    </div>
+
+</div>
+
+</body>
+</html>
