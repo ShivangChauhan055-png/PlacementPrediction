@@ -1,4 +1,3 @@
-
 from flask import Flask, render_template, request
 import pickle
 import numpy as np
@@ -18,7 +17,7 @@ def home():
 def predict():
     return render_template("predict.html")
 
-# Result
+# Result page
 @app.route("/result", methods=["POST"])
 def result():
     try:
@@ -37,17 +36,23 @@ def result():
                           aptitude, soft, extracurricular,
                           training, ssc, hsc]])
 
-        prediction = model.predict(data)[0]
+        # Probability based prediction
         prob = model.predict_proba(data)[0][1] * 100
+
+        if prob > 50:
+            prediction = 1
+        else:
+            prediction = 0
 
         result_text = "Placed ✅" if prediction == 1 else "Not Placed ❌"
 
         return render_template("result.html",
                                result=result_text,
-                               probability=round(prob,2))
+                               probability=round(prob, 2))
 
     except Exception as e:
         return f"ERROR: {e}"
+
 
 if __name__ == "__main__":
     app.run(debug=True)
