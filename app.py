@@ -37,12 +37,8 @@ def result():
                           training, ssc, hsc]])
 
         # Probability based prediction
-        prob = model.predict_proba(data)[0][1] * 100
-
-        if prob > 50:
-            prediction = 1
-        else:
-            prediction = 0
+        prediction = model.predict(data)[0]
+        prob = model.predict_proba(data)[0][1]*100
 
         result_text = "Placed ✅" if prediction == 1 else "Not Placed ❌"
 
