@@ -5,7 +5,7 @@ import numpy as np
 app = Flask(__name__)
 
 # Load model
-model = pickle.load(open("model/placement_model.pkl", "rb"))
+scaler = pickle.load(open("model/scaler.pkl", "rb"))
 
 # Home page
 @app.route("/")
