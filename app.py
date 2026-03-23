@@ -5,10 +5,10 @@ import os
 
 app = Flask(__name__)
 
-# ✅ Safe path (important for Render)
+#  Safe path (important for Render)
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-# ✅ Load model & scaler
+#  Load model & scaler
 model = pickle.load(open(os.path.join(BASE_DIR, "model/placement_model.pkl"), "rb"))
 scaler = pickle.load(open(os.path.join(BASE_DIR, "model/scaler.pkl"), "rb"))
 
@@ -28,7 +28,7 @@ def predict():
 @app.route("/result", methods=["POST"])
 def result():
     try:
-        # ✅ Get form data
+        # Get form data
         cgpa = float(request.form.get("cgpa") or 0)
         internships = float(request.form.get("internships") or 0)
         projects = float(request.form.get("projects") or 0)
@@ -40,15 +40,15 @@ def result():
         ssc = float(request.form.get("ssc") or 0)
         hsc = float(request.form.get("hsc") or 0)
 
-        # ✅ Convert to array
+        #  Convert to array
         data = np.array([[cgpa, internships, projects, workshops,
                           aptitude, soft, extracurricular,
                           training, ssc, hsc]])
 
-        # ✅ Apply scaler
+        #  Apply scaler
         data = scaler.transform(data)
 
-        # ✅ Probability based prediction (BEST)
+        #  Probability based prediction (BEST)
         prob = model.predict_proba(data)[0][1] * 100
         prediction = 1 if prob > 50 else 0
 
