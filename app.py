@@ -70,8 +70,8 @@ def result():
         data = scaler.transform(data)
 
         #  Probability based prediction (BEST)
-        prob = model.predict_proba(data)[0][1] * 100
-        prediction = 1 if prob > 50 else 0
+        prediction = model.predict(data)[0]
+        prob = model.predict_proba(data)[0][prediction] * 100
 
         result_text = "Placed ✅" if prediction == 1 else "Not Placed ❌"
 
