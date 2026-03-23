@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request
 import pickle
 import numpy as np
+import pandas as pd
 import os
 
 app = Flask(__name__)
@@ -41,9 +42,29 @@ def result():
         hsc = float(request.form.get("hsc") or 0)
 
         #  Convert to array
-        data = np.array([[cgpa, internships, projects, workshops,
-                          aptitude, soft, extracurricular,
-                          training, ssc, hsc]])
+        data = pd.DataFrame([[
+           cgpa,
+           internships,
+           projects,
+    workshops,
+    aptitude,
+    soft,
+    extracurricular,
+    training,
+    ssc,
+    hsc
+]], columns=[
+    'CGPA',
+    'Internships',
+    'Projects',
+    'Workshops/Certifications',
+    'AptitudeTestScore',
+    'SoftSkillsRating',
+    'ExtracurricularActivities',
+    'PlacementTraining',
+    'SSC_Marks',
+    'HSC_Marks'
+])
 
         #  Apply scaler
         data = scaler.transform(data)
