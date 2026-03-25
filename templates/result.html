@@ -13,13 +13,7 @@
 
         <h1>Prediction Result</h1>
 
-        <h2>
-            {% if result == "Placed" %}
-                ✅ Placed 🎉
-            {% else %}
-                ⚠️ Not Placed ❌
-            {% endif %}
-        </h2>
+        <h2>{{ result }}</h2>
 
         <h3>Chance: {{ probability }} %</h3>
 

@@ -6,74 +6,72 @@ import os
 
 app = Flask(__name__)
 
-#  Safe path (important for Render)
+# Base directory
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-#  Load model & scaler
-model = pickle.load(open(os.path.join(BASE_DIR, "model/placement_model.pkl"), "rb"))
-scaler = pickle.load(open(os.path.join(BASE_DIR, "model/scaler.pkl"), "rb"))
+# Load model & scaler safely
+model_path = os.path.join(BASE_DIR, "model", "placement_model.pkl")
+scaler_path = os.path.join(BASE_DIR, "model", "scaler.pkl")
+
+model = pickle.load(open(model_path, "rb"))
+scaler = pickle.load(open(scaler_path, "rb"))
 
 # ------------------ ROUTES ------------------
 
-# Home page
 @app.route("/")
 def home():
     return render_template("index.html")
 
-# Predict page
 @app.route("/predict")
 def predict():
     return render_template("predict.html")
 
-# Result page
 @app.route("/result", methods=["POST"])
 def result():
     try:
         # Get form data
-        cgpa = float(request.form.get("cgpa") or 0)
-        internships = float(request.form.get("internships") or 0)
-        projects = float(request.form.get("projects") or 0)
-        workshops = float(request.form.get("workshops") or 0)
-        aptitude = float(request.form.get("aptitude") or 0)
-        soft = float(request.form.get("soft") or 0)
-        extracurricular = float(request.form.get("extra") or 0)
-        training = float(request.form.get("training") or 0)
-        ssc = float(request.form.get("ssc") or 0)
-        hsc = float(request.form.get("hsc") or 0)
+        cgpa = float(request.form.get("cgpa", 0))
+        internships = int(request.form.get("internships", 0))
+        projects = int(request.form.get("projects", 0))
+        workshops = int(request.form.get("workshops", 0))
+        aptitude = float(request.form.get("aptitude", 0))
+        soft = float(request.form.get("soft", 0))
+        extracurricular = int(request.form.get("extra", 0))
+        training = float(request.form.get("training", 0))
+        ssc = float(request.form.get("ssc", 0))
+        hsc = float(request.form.get("hsc", 0))
 
-        #  Convert to array
+        # Create DataFrame
         data = pd.DataFrame([[
-           cgpa,
-           internships,
-           projects,
-    workshops,
-    aptitude,
-    soft,
-    extracurricular,
-    training,
-    ssc,
-    hsc
-]], columns=[
-    'CGPA',
-    'Internships',
-    'Projects',
-    'Workshops/Certifications',
-    'AptitudeTestScore',
-    'SoftSkillsRating',
-    'ExtracurricularActivities',
-    'PlacementTraining',
-    'SSC_Marks',
-    'HSC_Marks'
-])
+            cgpa, internships, projects, workshops, aptitude,
+            soft, extracurricular, training, ssc, hsc
+        ]], columns=[
+            'CGPA',
+            'Internships',
+            'Projects',
+            'Workshops/Certifications',
+            'AptitudeTestScore',
+            'SoftSkillsRating',
+            'ExtracurricularActivities',
+            'PlacementTraining',
+            'SSC_Marks',
+            'HSC_Marks'
+        ])
 
-        #  Apply scaler
-        data = scaler.transform(data)
+        # Scale data
+        data_scaled = scaler.transform(data)
 
-        #  Probability based prediction (BEST)
-        prediction = model.predict(data)[0]
-        prob = model.predict_proba(data)[0][prediction] * 100
+        # Prediction
+        prediction = model.predict(data_scaled)[0]
 
-        result_text = "Placed ✅" if prediction == 1 else "Not Placed ❌"
+        # Probability (Placed = class 1)
+        prob = model.predict_proba(data_scaled)[0][1] * 100
+
+        # Custom threshold logic
+        if prob >= 60:
+            result_text = "You will be Placed 🎉"
+        else:
+            result_text = "Not Placed ❌"
 
         return render_template(
             "result.html",
@@ -82,7 +80,7 @@ def result():
         )
 
     except Exception as e:
-        return f"ERROR: {e}"
+        return f"ERROR: {str(e)}"
 
 # ------------------ RUN ------------------
 
