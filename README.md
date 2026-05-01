@@ -1,31 +1,31 @@
-# 🎯 Placement Prediction System
+# Placement Prediction System
 
 A Machine Learning web app that predicts a student's placement chances based on academic performance and skills.
 
 ---
 
-## 🌐 Live Demo
+## Live Demo
 
 🔗 https://placementprediction-1.onrender.com/
 
 ---
 
-## ✨ Features
+##  Features
 
-* 📊 Predicts placement probability
-* ⚡ Real-time input-based results
-* 🧠 Built using Logistic Regression
-* 🌍 Deployed on Render
-
----
-
-## 🛠 Tech Stack
-
-🐍 Python • ⚙️ Flask • 📦 Scikit-learn • 🎨 HTML • 💅 CSS
+1. Predicts placement probability
+2. Real-time input-based results
+3. Built using Logistic Regression
+4. Deployed on Render
 
 ---
 
-## 📂 Project Structure
+##  Tech Stack
+
+ Python •  Flask •  Scikit-learn •  HTML •  CSS
+
+---
+
+##  Project Structure
 
 ```
 PlacementPrediction/
@@ -35,12 +35,6 @@ PlacementPrediction/
 ├── app.py
 └── requirements.txt
 ```
----
-
-## 👨‍💻 Author
-
-Shivang Chauhan
-
 ---
 
 ⭐ If you like this project, consider giving it a star!
